@@ -28,6 +28,20 @@ language="java" %> <%@taglib prefix="c" uri="jakarta.tags.core" %>
 
         <div class="categories">
           <h3>Categories</h3>
+
+          <!-- <c:forEach var="category" items="${categories}">
+             <% String cc = request.getAttribute("currentCategory").toString();%>
+            <a
+              href="home?category=${category}"
+              class="category-btn"
+              <c:if test="${cc == category}">
+                style="color: #1a73e8;font-weight: 600;"
+              </c:if>
+
+              <i class="fas fa-inbox"></i> ${category}</a
+              >
+          </c:forEach> -->
+
           <a href="home?category=Miscellaneous" class="category-btn active">
             <i class="fas fa-inbox"></i> Miscellaneous
           </a>
@@ -64,7 +78,7 @@ language="java" %> <%@taglib prefix="c" uri="jakarta.tags.core" %>
       <!-- Main Content -->
       <main class="main-content">
         <div class="tasks-header">
-          <h2>All Tasks</h2>
+          <h2><%=request.getAttribute("currentCategory").toString()%></h2>
         </div>
 
         <div class="tasks-list">
@@ -77,10 +91,29 @@ language="java" %> <%@taglib prefix="c" uri="jakarta.tags.core" %>
                 <h3>${task.taskDescription}</h3>
                 <p class="task-date">Due: ${task.dueDate}</p>
               </div>
-              <div class="task-actions">
-                <button class="edit-btn"><i class="fas fa-edit"></i></button>
-                <button class="delete-btn"><i class="fas fa-trash"></i></button>
-              </div>
+              <div class="task-actions"></div>
+              <form method="post" action="task" style="display: inline">
+                <input type="hidden" name="taskId" value="${task.taskId}" />
+                <button type="submit" class="edit-btn">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </form>
+              <form
+                method="delete"
+                action="task"
+                style="display: inline"
+                onsubmit="return confirm('Are you sure you want to delete this task?');"
+              >
+                <input type="hidden" name="_method" value="delete" />
+                <input type="hidden" name="taskId" value="${task.taskId}" />
+                <button
+                  type="submit"
+                  class="delete-btn"
+                  style="padding: 0.5rem; color: red"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
             </div>
           </c:forEach>
         </div>
@@ -95,9 +128,8 @@ language="java" %> <%@taglib prefix="c" uri="jakarta.tags.core" %>
               name="taskDescription"
               required
             />
-            <input type="date" class="date-input" name="dueDate" /><i
-              >Due Date</i
-            >
+            <i>Due Date</i>
+            <input type="datetime-local" class="date-input" name="dueDate" />
             <select class="category-input" name="category">
               <option value="">Select Category</option>
               <option value="Miscellaneous">Miscellaneous</option>

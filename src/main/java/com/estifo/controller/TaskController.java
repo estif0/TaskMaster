@@ -94,13 +94,32 @@ public class TaskController extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int taskId = Integer.parseInt(request.getParameter("id"));
-        Task task = tasks.remove(taskId);
-        if (task != null) {
-            response.getWriter().write("Task deleted with ID: " + taskId);
-        } else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().write("Task not found");
+        int taskId = Integer.parseInt(request.getParameter("taskId"));
+        TaskDAO taskDAO = new TaskDAO();
+        HttpSession sess = request.getSession();
+
+        User user = (User) sess.getAttribute("user");
+
+        Category category = Category.valueOf(request.getParameter("category"));
+        try {
+            if (user != null) {
+                if (taskDAO.delete(taskId)) {
+                    response.getWriter().write("Task deleted with ID: " + taskId);
+                    response.sendRedirect("home?category=" + category);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().write("Task not found");
+                }
+            } else {
+                System.out.println("User is null");
+                request.setAttribute("error", "User does not exist");
+                RequestDispatcher dis = request.getRequestDispatcher("login.jsp");
+                dis.forward(request, response);
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+
     }
 }

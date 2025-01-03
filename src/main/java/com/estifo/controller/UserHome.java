@@ -41,6 +41,14 @@ public class UserHome extends HttpServlet {
                 List<Task> tasks = taskDAO.getByCategory(Category.valueOf(category), user);
                 request.setAttribute("tasks", tasks);
                 System.out.println(tasks.size());
+
+                List<String> categories = List.of(Category.values()).stream().map(Category::name)
+                        .collect(Collectors.toList());
+                System.out.println("-----------------------------------");
+                System.out.println(category);
+                request.setAttribute("categories", categories);
+
+                request.setAttribute("currentCategory", category);
                 RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/dashboard.jsp");
                 dis.forward(request, response);
             } else {
