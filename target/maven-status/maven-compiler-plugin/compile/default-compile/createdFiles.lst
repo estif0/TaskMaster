@@ -1,0 +1,12 @@
+com\estifo\controller\TaskController.class
+com\estifo\controller\UserController.class
+com\estifo\beans\Gender.class
+com\estifo\beans\Category.class
+com\estifo\service\TaskDAO.class
+com\estifo\service\UserDAO.class
+com\estifo\service\DAO.class
+com\estifo\service\DBService.class
+com\estifo\controller\UserHome.class
+com\estifo\beans\User.class
+com\estifo\controller\Login.class
+com\estifo\beans\Task.class
