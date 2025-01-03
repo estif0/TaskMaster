@@ -68,30 +68,27 @@ TaskMaster/
 
 ### Installation 🛠️
 
-1. **Clone the repository**:
+1.  **Clone the repository**:
 
         ```sh
         git clone https://github.com/estif0/TaskMaster.git
         cd TaskMaster
         ```
 
-2. **Set up the database**:
+2.  **Set up the database**:
 
-        - Create a MySQL database named `TaskMaster`.
-        - Execute the SQL script located at `src/main/resources/Schema.sql` to create the necessary tables.
+    - Create a MySQL database named `TaskMaster`.
+    - Execute the SQL script located at `src/main/resources/Schema.sql` to create the necessary tables.
 
-3. **Configure the database connection**:
+3.  **Configure the database connection**:- Update the database connection details in `src/main/java/com/estifo/service/DBService.java`.
 
-        - Update the database connection details in `src/main/java/com/estifo/service/DBService.java`.
-
-4. **Build the project**:
+4.  **Build the project**: Run the following command to build the project using Maven.
 
         ```sh
         mvn clean install
         ```
 
-5. **Deploy the WAR file**:
-        - Deploy the generated WAR file located in the `target` directory to your preferred servlet container (e.g., Apache Tomcat).
+5.  **Deploy the WAR file**: - Deploy the generated WAR file located in the `target` directory to your preferred servlet container (e.g., Apache Tomcat).
 
 ### Running the Application 🏃
 
