@@ -34,6 +34,7 @@ public class UserHome extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sess = request.getSession();
         String category = request.getParameter("category");
+        String taskId = request.getParameter("tastId");
         User user = (User) sess.getAttribute("user");
         try {
             if (user != null) {
@@ -44,8 +45,7 @@ public class UserHome extends HttpServlet {
 
                 List<String> categories = List.of(Category.values()).stream().map(Category::name)
                         .collect(Collectors.toList());
-                System.out.println("-----------------------------------");
-                System.out.println(category);
+
                 request.setAttribute("categories", categories);
 
                 request.setAttribute("currentCategory", category);
