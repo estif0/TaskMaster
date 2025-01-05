@@ -1,20 +1,18 @@
 package com.estifo.controller;
 
-import jakarta.servlet.http.HttpServlet;
-import com.estifo.beans.Task;
-import com.estifo.beans.Category;
-import com.estifo.beans.User;
-import com.estifo.service.TaskDAO;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import com.estifo.beans.Category;
+import com.estifo.beans.Task;
+import com.estifo.beans.User;
+import com.estifo.service.TaskDAO;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

@@ -24,24 +24,13 @@ language="java" %> <%@taglib prefix="c" uri="jakarta.tags.core" %>
           <h1><%=user.getFirstName()%> <%=user.getLastName()%></h1>
 
           <p><%=user.getEmail()%></p>
+          <form action="logout" method="post">
+            <button type="submit" class="add-task-btn">Logout</button>
+          </form>
         </div>
 
         <div class="categories">
           <h3>Categories</h3>
-
-          <!-- <c:forEach var="category" items="${categories}">
-             <% String cc = request.getAttribute("currentCategory").toString();%>
-            <a
-              href="home?category=${category}"
-              class="category-btn"
-              <c:if test="${cc == category}">
-                style="color: #1a73e8;font-weight: 600;"
-              </c:if>
-
-              <i class="fas fa-inbox"></i> ${category}</a
-              >
-          </c:forEach> -->
-
           <a href="home?category=Miscellaneous" class="category-btn active">
             <i class="fas fa-inbox"></i> Miscellaneous
           </a>

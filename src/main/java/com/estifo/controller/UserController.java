@@ -1,21 +1,18 @@
 package com.estifo.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.estifo.beans.Gender;
+import com.estifo.beans.User;
 import com.estifo.service.UserDAO;
-import jakarta.servlet.RequestDispatcher;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
-import com.estifo.beans.User;
-import com.estifo.beans.Gender;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
         maxFileSize=1024*1024*10,      // 10MB
