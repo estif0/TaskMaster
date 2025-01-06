@@ -19,15 +19,14 @@ public class TaskDAO implements DAO<Task> {
         int result = 0;
         try {
             Connection con = DBService.openConnection();
-            String insert = "INSERT INTO TaskMaster.Task (taskDescription, dueDate, finishedDate, category, userId, isDone) VALUES (?,?,?,?,?,?);";
+            String insert = "INSERT INTO TaskMaster.Task (taskDescription, dueDate,category, userId, isDone) VALUES (?,?,?,?,?);";
             ps = con.prepareStatement(insert);
 
             ps.setString(1, t.getTaskDescription());
             ps.setObject(2, t.getDueDate());
-            ps.setObject(3, t.getFinishedDate());
-            ps.setString(4, t.getCategory().toString());
-            ps.setInt(5, t.getUser().getUserId());
-            ps.setBoolean(6, t.isDone());
+            ps.setString(3, t.getCategory().toString());
+            ps.setInt(4, t.getUser().getUserId());
+            ps.setBoolean(5, t.isDone());
 
             result = ps.executeUpdate();
         } catch (SQLException e) {
@@ -49,15 +48,14 @@ public class TaskDAO implements DAO<Task> {
         int result = 0;
         try {
             Connection con = DBService.openConnection();
-            String update = "UPDATE TaskMaster.Task SET taskDescription=?, dueDate=?, finishedDate=?, category=?, userId=?, isDone=? WHERE taskId=?";
+            String update = "UPDATE TaskMaster.Task SET taskDescription=?, dueDate=?, finishedDate=?, category=?, isDone=? WHERE taskId=?";
             ps = con.prepareStatement(update);
             ps.setString(1, t.getTaskDescription());
             ps.setObject(2, t.getDueDate());
             ps.setObject(3, t.getFinishedDate());
             ps.setString(4, t.getCategory().toString());
-            ps.setInt(5, t.getUser().getUserId());
-            ps.setBoolean(6, t.isDone());
-            ps.setInt(7, t.getTaskId());
+            ps.setBoolean(5, t.isDone());
+            ps.setInt(6, t.getTaskId());
 
             result = ps.executeUpdate();
         } catch (SQLException e) {
@@ -108,14 +106,14 @@ public class TaskDAO implements DAO<Task> {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Task task = new Task(
+                    rs.getInt("taskId"),
                         rs.getString("taskDescription"),
+                        rs.getObject("createdTime", LocalDateTime.class),
                         rs.getObject("dueDate", LocalDateTime.class),
                         rs.getObject("finishedDate", LocalDateTime.class),
                         Category.valueOf(rs.getString("category")),
-                        (new UserDAO()).get(rs.getInt("userId")));
-                task.setTaskId(rs.getInt("taskId"));
-                task.setCreatedTime(rs.getObject("createdTime", LocalDateTime.class));
-                task.setDone(rs.getBoolean("isDone"));
+                        (new UserDAO()).get(rs.getInt("userId")),
+                        rs.getBoolean("isDone"));
                 tasks.add(task);
             }
         } catch (SQLException e) {
@@ -146,14 +144,14 @@ public class TaskDAO implements DAO<Task> {
             rs = ps.executeQuery();
             if (rs.next()) {
                 task = new Task(
+                    rs.getInt("taskId"),
                         rs.getString("taskDescription"),
+                        rs.getObject("createdTime", LocalDateTime.class),
                         rs.getObject("dueDate", LocalDateTime.class),
                         rs.getObject("finishedDate", LocalDateTime.class),
                         Category.valueOf(rs.getString("category")),
-                        (new UserDAO()).get(rs.getInt("userId")));
-                task.setTaskId(rs.getInt("taskId"));
-                task.setCreatedTime(rs.getObject("createdTime", LocalDateTime.class));
-                task.setDone(rs.getBoolean("isDone"));
+                        (new UserDAO()).get(rs.getInt("userId")),
+                        rs.getBoolean("isDone"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -183,14 +181,14 @@ public class TaskDAO implements DAO<Task> {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Task task = new Task(
+                    rs.getInt("taskId"),
                         rs.getString("taskDescription"),
+                        rs.getObject("createdTime", LocalDateTime.class),
                         rs.getObject("dueDate", LocalDateTime.class),
                         rs.getObject("finishedDate", LocalDateTime.class),
-                        category,
-                        (new UserDAO()).get(rs.getInt("userId")));
-                task.setTaskId(rs.getInt("taskId"));
-                task.setCreatedTime(rs.getObject("createdTime", LocalDateTime.class));
-                task.setDone(rs.getBoolean("isDone"));
+                        Category.valueOf(rs.getString("category")),
+                        (new UserDAO()).get(rs.getInt("userId")),
+                        rs.getBoolean("isDone"));
                 tasks.add(task);
             }
         } catch (SQLException e) {

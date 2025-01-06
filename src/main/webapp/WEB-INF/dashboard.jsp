@@ -54,31 +54,54 @@
                                 <h3>${task.taskDescription}</h3>
                                 <p class="task-date">Due: ${task.dueDate}</p>
                             </div>
-                            <div class="task-actions"></div>
-                            <form method="post" action="task" style="display: inline">
-                                <input type="hidden" name="taskId" value="${task.taskId}" />
-                                <button type="submit" class="edit-btn">
+                            <div class="task-actions">
+                                <button class="edit-btn" onclick="openEditModal('${task.taskId}', '${task.taskDescription}', '${task.dueDate}')">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                            </form>
-                            <form method="delete" action="task" style="display: inline" onsubmit="return confirm('Are you sure you want to delete this task?');">
-                                <input type="hidden" name="_method" value="delete" />
-                                <input type="hidden" name="taskId" value="${task.taskId}" />
-                                <button type="submit" class="delete-btn" style="padding: 0.5rem; color: red">
+                                <!-- Edit Task Modal -->
+                                <div id="${task.taskId}" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close" onclick="closeEditModal('${task.taskId}')">&times;</span>
+                                        <form method="post" action="editTask" class="edit-task-form">
+                                            <input type="hidden" id="editTaskId${task.taskId}" name="taskId" />
+                                            <i>Task description</i>
+                                            <input type="text" id="editTaskDescription${task.taskId}" placeholder="Task title" class="task-input" name="taskDescription" required />
+                                            <i>Due Date</i>
+                                            <input type="datetime-local" id="editDueDate${task.taskId}" class="date-input" name="dueDate" />
+                                            <i>Category</i>
+                                            <select class="category-input" name="category">
+                                                <option value='${task.category}'>Select Category</option>
+                                                <option value="Miscellaneous">Miscellaneous</option>
+                                                <option value="Personal">Personal</option>
+                                                <option value="Home">Home</option>
+                                                <option value="Work">Work</option>
+                                                <option value="Education">Education</option>
+                                                <option value="Health">Health</option>
+                                                <option value="Finances">Finances</option>
+                                                <option value="Shopping">Shopping</option>
+                                                <option value="Family_and_Friends">Family & Friends</option>
+                                                <option value="Travel">Travel</option>
+                                            </select>
+                                            <button type="submit" class="add-task-btn"><i class="fas fa-save"></i> Save Task</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <a href="deleteTask?taskId=${task.taskId}" class="delete-btn" style="padding: 0.5rem; color: red" onclick="return confirm('Are you sure you want to delete this task?');">
                                     <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                                </a>
+                            </div>
+                            
                         </div>
                     </c:forEach>
                 </div>
 
                 <!-- Add Task Section -->
                 <div class="add-task-section">
-                    <form method="post" action="task" class="add-task-form">
+                    <form method="post" action="addTask" class="add-task-form">
                         <input type="text" placeholder="Task title" class="task-input" name="taskDescription" required />
                         <i>Due Date</i>
                         <input type="datetime-local" class="date-input" name="dueDate" />
-                        <select class="category-input" name="category">
+                        <select class="category-input" name="category" required>
                             <option value="">Select Category</option>
                             <option value="Miscellaneous">Miscellaneous</option>
                             <option value="Personal">Personal</option>
@@ -96,5 +119,7 @@
                 </div>
             </main>
         </div>
+        <script src="js/script.js">  
+        </script>
     </body>
 </html>
