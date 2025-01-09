@@ -31,9 +31,12 @@ public class UserHome extends HttpServlet {
                 List<Task> tasks = taskDAO.getByCategory(Category.valueOf(category), user);
                 List<String> categories = List.of(Category.values()).stream().map(Category::name)
                         .collect(Collectors.toList());
+                List<Task> unfinishedTasks = tasks.stream().filter(e -> (e.isDone() == false)).toList();
+                List<Task> finishedTasks = tasks.stream().filter(e -> (e.isDone() == true)).toList();
 
                 request.setAttribute("categories", categories);
-                request.setAttribute("tasks", tasks);
+                request.setAttribute("tasks", unfinishedTasks);
+                request.setAttribute("finishedTasks", finishedTasks);
                 request.setAttribute("currentCategory", category);
                 RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/dashboard.jsp");
                 dis.forward(request, response);

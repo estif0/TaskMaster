@@ -49,7 +49,11 @@
 
                     <c:forEach var="task" items="${tasks}">
                         <div class="task-item">
-                            <input type="checkbox" class="task-checkbox" />
+                            <form method="post" action="finishTask">
+                                <input type="hidden" name="taskId" value="${task.taskId}" />
+                                <input type="hidden" name="category" value="${task.category}" />
+                                <input type="checkbox" class="task-checkbox" onclick="this.form.submit()" />
+                            </form>
                             <div class="task-content">
                                 <h3>${task.taskDescription}</h3>
                                 <p class="task-date">Due: ${task.dueDate}</p>
@@ -91,6 +95,20 @@
                                 </a>
                             </div>
                             
+                        </div>
+                    </c:forEach>
+                    <div class="tasks-header">
+                        <h3>Completed tasks</h3>
+                    </div>
+                    <c:forEach var="task" items="${finishedTasks}">
+                        <div class="task-item">
+                            <div class="task-content">
+                                <h4>${task.taskDescription}</h4>
+                                <div style="display: flex; gap: 10px;">
+                                    <p class="task-date">Due: ${task.dueDate}</p>
+                                    <p class="task-date">Finished on: ${task.finishedDate}</p>
+                                </div>
+                            </div>                           
                         </div>
                     </c:forEach>
                 </div>

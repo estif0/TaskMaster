@@ -16,23 +16,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/addTask")
-public class AddTask extends HttpServlet {
-
+@WebServlet("/finishTask")
+public class FinishTask extends HttpServlet {
+    private TaskDAO taskDAO = new TaskDAO();
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        String taskDescription = req.getParameter("taskDescription");
-        LocalDateTime dueDate = LocalDateTime.parse(req.getParameter("dueDate"));
         Category category = Category.valueOf(req.getParameter("category"));
+        int taskId = Integer.parseInt(req.getParameter("taskId"));
 
         try {
             if (user != null) {
-                Task task = new Task(taskDescription, dueDate, category, user);
-                TaskDAO taskDAO = new TaskDAO();
-                taskDAO.add(task);
+                Task task = taskDAO.get(taskId);
+                if(task != null){
+                    task.setDone(true);
+                    task.setFinishedDate(LocalDateTime.now());
+                    taskDAO.update(task);
+                }
                 resp.sendRedirect("home?category=" + category);
             } else {
                 System.out.println("User is null");
