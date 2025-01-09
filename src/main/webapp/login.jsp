@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8"
+language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +23,10 @@
 <div class="auth-container">
     <form method="post" action="login" class="auth-form login-form">
         <h2>Welcome Back</h2>
+        <h3 style="color: red;">
+            <% Object obj = request.getAttribute("error");%>
+            <%=(obj != null) ? obj.toString() : ""%>
+        </h3>
         <div class="form-group">
             <input type="email" name="email" placeholder="Email" required>
         </div>

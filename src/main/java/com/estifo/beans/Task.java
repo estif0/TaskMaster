@@ -12,15 +12,28 @@ public class Task {
     private User user;
     private boolean isDone;
 
-    public Task(String taskDescription, LocalDateTime dueDate, LocalDateTime finishedDate,
-            Category category, User user) {
+    public Task(String taskDescription, LocalDateTime dueDate, Category category, User user) {
         this.taskDescription = taskDescription;
         this.dueDate = dueDate;
-        this.finishedDate = finishedDate;
         this.category = category;
         this.user = user;
         this.isDone = false;
     }
+    
+
+    public Task(int taskId, String taskDescription, LocalDateTime createdTime, LocalDateTime dueDate,
+            LocalDateTime finishedDate, Category category, User user, boolean isDone) {
+        this.taskId = taskId;
+        this.taskDescription = taskDescription;
+        this.createdTime = createdTime;
+        this.dueDate = dueDate;
+        this.finishedDate = finishedDate;
+        this.category = category;
+        this.user = user;
+        this.isDone = isDone;
+    }
+
+
 
     public int getTaskId() {
         return taskId;

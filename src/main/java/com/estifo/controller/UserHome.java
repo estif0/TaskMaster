@@ -1,10 +1,7 @@
 package com.estifo.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.estifo.beans.Category;
@@ -14,40 +11,32 @@ import com.estifo.service.TaskDAO;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+@WebServlet("/home")
 public class UserHome extends HttpServlet {
-
-    public UserHome() {
-        super();
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession sess = request.getSession();
+        HttpSession session = request.getSession();
         String category = request.getParameter("category");
-        String taskId = request.getParameter("tastId");
-        User user = (User) sess.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         try {
             if (user != null) {
                 TaskDAO taskDAO = new TaskDAO();
                 List<Task> tasks = taskDAO.getByCategory(Category.valueOf(category), user);
-                request.setAttribute("tasks", tasks);
-                System.out.println(tasks.size());
-
                 List<String> categories = List.of(Category.values()).stream().map(Category::name)
                         .collect(Collectors.toList());
+                List<Task> unfinishedTasks = tasks.stream().filter(e -> (e.isDone() == false)).toList();
+                List<Task> finishedTasks = tasks.stream().filter(e -> (e.isDone() == true)).toList();
 
                 request.setAttribute("categories", categories);
-
+                request.setAttribute("tasks", unfinishedTasks);
+                request.setAttribute("finishedTasks", finishedTasks);
                 request.setAttribute("currentCategory", category);
                 RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/dashboard.jsp");
                 dis.forward(request, response);

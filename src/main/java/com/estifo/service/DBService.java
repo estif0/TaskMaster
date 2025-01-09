@@ -22,8 +22,4 @@ public class DBService {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        openConnection();
-    }
 }
