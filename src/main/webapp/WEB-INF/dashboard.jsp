@@ -15,6 +15,7 @@
                     <img src="https://i.pravatar.cc/150?img=4" alt="User Profile" />
 
                     <% User user = (User)request.getSession().getAttribute("user");%>
+                    <% String category = request.getAttribute("currentCategory").toString();%>
                     <h1><%=user.getFirstName()%> <%=user.getLastName()%></h1>
 
                     <p><%=user.getEmail()%></p>
@@ -25,23 +26,23 @@
 
                 <div class="categories">
                     <h3>Categories</h3>
-                    <a href="home?category=Miscellaneous" class="category-btn active"> <i class="fas fa-inbox"></i> Miscellaneous </a>
-                    <a href="home?category=Personal" class="category-btn"> <i class="fas fa-user"></i> Personal </a>
-                    <a href="home?category=Home" class="category-btn"> <i class="fas fa-home"></i> Home </a>
-                    <a href="home?category=Work" class="category-btn"> <i class="fas fa-briefcase"></i> Work </a>
-                    <a href="home?category=Education" class="category-btn"> <i class="fas fa-graduation-cap"></i> Education </a>
-                    <a href="home?category=Health" class="category-btn"> <i class="fas fa-heartbeat"></i> Health </a>
-                    <a href="home?category=Finances" class="category-btn"> <i class="fas fa-dollar-sign"></i> Finances </a>
-                    <a href="home?category=Shopping" class="category-btn"> <i class="fas fa-shopping-cart"></i> Shopping </a>
-                    <a href="home?category=Family_and_Friends" class="category-btn"> <i class="fas fa-users"></i> Family & Friends </a>
-                    <a href="home?category=Travel" class="category-btn"> <i class="fas fa-plane"></i> Travel </a>
+                    <a id='Miscellaneous' href="home?category=Miscellaneous" class="category-btn"> <i class="fas fa-inbox"></i> Miscellaneous </a>
+                    <a id='Personal' href="home?category=Personal" class="category-btn"> <i class="fas fa-user"></i> Personal </a>
+                    <a id='Home' href="home?category=Home" class="category-btn"> <i class="fas fa-home"></i> Home </a>
+                    <a id='Work' href="home?category=Work" class="category-btn"> <i class="fas fa-briefcase"></i> Work </a>
+                    <a id='Education' href="home?category=Education" class="category-btn"> <i class="fas fa-graduation-cap"></i> Education </a>
+                    <a id='Health' href="home?category=Health" class="category-btn"> <i class="fas fa-heartbeat"></i> Health </a>
+                    <a id='Finances' href="home?category=Finances" class="category-btn"> <i class="fas fa-dollar-sign"></i> Finances </a>
+                    <a id='Shopping' href="home?category=Shopping" class="category-btn"> <i class="fas fa-shopping-cart"></i> Shopping </a>
+                    <a id='Family' href="home?category=Family" nd_Friends')" class="category-btn"> <i class="fas fa-users"></i> Family </a>
+                    <a id='Travel' href="home?category=Travel" class="category-btn"> <i class="fas fa-plane"></i> Travel </a>
                 </div>
             </aside>
 
             <!-- Main Content -->
             <main class="main-content">
                 <div class="tasks-header">
-                    <h2><%=request.getAttribute("currentCategory").toString()%></h2>
+                    <h2 id="header" ><%=category%></h2>
                 </div>
 
                 <div class="tasks-list">
@@ -83,7 +84,7 @@
                                                 <option value="Health">Health</option>
                                                 <option value="Finances">Finances</option>
                                                 <option value="Shopping">Shopping</option>
-                                                <option value="Family_and_Friends">Family & Friends</option>
+                                                <option value="Family">Family</option>
                                                 <option value="Travel">Travel</option>
                                             </select>
                                             <button type="submit" class="add-task-btn"><i class="fas fa-save"></i> Save Task</button>
@@ -129,7 +130,7 @@
                             <option value="Health">Health</option>
                             <option value="Finances">Finances</option>
                             <option value="Shopping">Shopping</option>
-                            <option value="Family_and_Friends">Family & Friends</option>
+                            <option value="Family">Family</option>
                             <option value="Travel">Travel</option>
                         </select>
                         <button type="submit" class="add-task-btn"><i class="fas fa-plus"></i> Add Task</button>
