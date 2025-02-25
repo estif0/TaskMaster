@@ -90,7 +90,7 @@ TaskMaster/
 
 ### 🏃 Running the Application 🏃
 
-- Access the application at `http://localhost:8080/TaskMaster`.
+- Access the application at `http://localhost:8080/TaskMaster`
 
 ## 📖 Usage 📖
 
